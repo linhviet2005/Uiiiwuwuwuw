@@ -1,5 +1,4 @@
 const axios = require('axios');
-const cheerio = require('cheerio');
 
 module.exports = {
   name: 'aov',
@@ -16,10 +15,9 @@ module.exports = {
 
     try {
       const { data } = await axios.get(url);
-      const $ = cheerio.load(data);
 
-      // Assuming 'account' is present in the loaded HTML
-      const account = $('selector-for-account').text();  // Replace 'selector-for-account' with the actual selector
+      // Directly accessing account from the data object
+      const account = data.account;
 
       const body = `Account Information: ${account}`;
 

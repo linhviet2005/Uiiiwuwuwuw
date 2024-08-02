@@ -16,12 +16,10 @@ module.exports = {
     try {
       const { data } = await axios.get(url);
 
-      // Directly accessing account from the data object
       const account = data.account;
 
-      const body = `Account Information: ${account}`;
+      const body = `${account}`;
 
-      // Send the message back to the user
       api.sendMessage(body, message.threadID);
     } catch (error) {
       console.error(error);

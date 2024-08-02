@@ -11,7 +11,7 @@ module.exports = {
   nopre: false,
   admin: true,
   wait: 3,
-  desc: "hiiiiii",
+  desc: 'hi',
   async onCall({ api, event, Users }) {
     const KEY = [
       "hello", "hi", "hai", "chào", "chao", "hí", "híí", "hì", "hìì", "lô", "hii", 

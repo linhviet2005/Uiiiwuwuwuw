@@ -36,6 +36,7 @@ module.exports = {
     wait: 3,
     desc: "autodown khi phát hiện liên kết",
     async onCall({ message }) {
+        // Implement as needed
     },
     async onMessage({ message }) {
         try {
@@ -50,6 +51,7 @@ module.exports = {
 
             for (const url of urls) {
                 if (/tiktok/.test(url)) {
+                    // Handle TikTok URLs
                     const host = 'https://www.tikwm.com';
                     const res = await axios.get(`${host}/api`, {
                         params: {
@@ -91,6 +93,34 @@ module.exports = {
 
                         message.react("✅");
                     }
+                } else if (/capcut/.test(url)) {
+                    // Handle CapCut URLs
+                    const linkapi = "https://apitntxtrick.onlitegix.com/capcut";
+                    const res = await axios.get(`${linkapi}?url=${url}`);
+                    const { title, description, usage, video } = res.data;
+                    
+                    message.react("⏱️");
+                    let attachment = [];
+
+                    if (video) {
+                        const path = `${cache}/${Date.now()}.mp4`;
+                        const response = await axios.get(video, { responseType: "arraybuffer" });
+                        const buffer = Buffer.from(response.data);
+                        fs.writeFileSync(path, buffer);
+                        attachment.push(fs.createReadStream(path));
+                    }
+
+                    await message.send({
+                        body: `
+📝 Tiêu đề: ${title || "Không Có Tiêu Đề"} 
+🗒 Mô tả: ${description || "Không Có Mô Tả"}
+📸 Lượt dùng: ${usage || "Không Có Dữ Liệu"}
+🌸 Tự động tải video từ CapCut
+`,
+                        attachment,
+                    }, message.threadID);
+
+                    message.react("✅");
                 }
             }
         } catch (error) {

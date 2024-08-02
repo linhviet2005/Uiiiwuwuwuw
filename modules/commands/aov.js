@@ -11,7 +11,7 @@ module.exports = {
   desc: 'Fetches AOV account data',
 
   async onCall({ api, message }) {
-    const url = 'https://apitntxtrick.onlitegix.com/10tracclq?apikey=acclq';
+    const url = 'https://apitntxtrick.onlitegix.com/accaov?apikey=acclq';
 
     try {
       const { data } = await axios.get(url);

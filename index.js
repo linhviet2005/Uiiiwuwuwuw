@@ -1,4 +1,18 @@
-const fs = require('fs'), readline = require('readline'), { spawn } = require('child_process'), { doneAnimation } = require('./logger/index');
+const express = require('express');
+const path = require('path');
+const fs = require('fs');
+const readline = require('readline');
+const { spawn } = require('child_process');
+const { doneAnimation } = require('./logger/index');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 const startChatbot = () => {
     const chatbotProcess = spawn("node", ["--trace-warnings", "--async-stack-traces", "main.js"], {
@@ -84,11 +98,15 @@ const main = async () => {
     }
 
     await cleanupTempFolder();
-  if (!fs.existsSync('./appstate.json')) {
-    console.error('Không tìm thấy appstate.json, hãy tạo mới');
-    process.exit(0);
-   }
+    if (!fs.existsSync('./appstate.json')) {
+        console.error('Không tìm thấy appstate.json, hãy tạo mới');
+        process.exit(0);
+    }
     startChatbot();
 };
 
 main();
+
+app.listen(PORT, () => {
+    console.log(`Server đang chạy tại http://localhost:${PORT}`);
+});

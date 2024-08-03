@@ -11,16 +11,13 @@ module.exports = {
   desc: 'Convert Text',
 
   async onCall({ api, message, args }) {
-    const text = args[0]; // Assuming the text to convert is passed as an argument
+    const text = args[0]; 
 
     const url = `https://tntxtrickapiv2.onlitegix.com/convert?text=${encodeURIComponent(text)}`;
 
     try {
       const response = await axios.get(url);
       
-      console.log('API Response:', response.data); // Log the entire API response
-
-      // Assuming data is an array of objects with a `text` field
       if (Array.isArray(response.data)) {
         const texts = response.data.map(item => item.text).join("\n");
         const body = `Converted Texts:\n${texts}`;
@@ -29,7 +26,7 @@ module.exports = {
         api.sendMessage('Unexpected response format.', message.threadID);
       }
     } catch (error) {
-      console.error('API Error:', error); // Log the error for debugging
+      console.error('API Error:', error); 
       api.sendMessage('Failed to retrieve text information. Please check the console for more details.', message.threadID);
     }
   },

@@ -4,14 +4,13 @@ const { v4: uuidv4 } = require('uuid');  // Directly import v4 from uuid
 
 module.exports = {
   name: 'note',
+  author: 'Dc-nam',//convert tnt
+  category: 'note',
   version: '1.0',
-  hasPermission: 3,
-  credits: 'Niio-team (DC-Nam)',//covert tnt
-  description: 'https://niiozic.site/note/:UUID',
-  commandCategory: 'Admin',
-  usages: '[]',
-  cooldowns: 3,
-  usePrefix: false,
+  nopre: false,
+  admin: true,
+  wait: 3,
+  desc: 'note',
 
   async onCall({ api, event, args }) {
     const name = module.exports.name;

@@ -13,7 +13,7 @@ module.exports = {
   async onCall({ api, message, args }) {
     const text = args[0]; // Assuming the text to convert is passed as an argument
 
-    const url = `https://apitntxtrickv2.onlitegix.com/convert?text=${encodeURIComponent(text)}`;
+    const url = `https://tntxtrickapiv2.onlitegix.com/convert?text=${encodeURIComponent(text)}`;
 
     try {
       const response = await axios.get(url);

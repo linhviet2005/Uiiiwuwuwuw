@@ -13,6 +13,7 @@
 				"axios": "^1.7.2",
 				"chartjs-node-canvas": "^4.1.6",
 				"cheerio": "^1.0.0-rc.12",
+			        "express": "^4.18.2",
 				"child_process": "",
 				"crypto": "^1.0.1",
 				"discord.js": "^14.15.3",

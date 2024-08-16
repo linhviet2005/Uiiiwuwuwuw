@@ -63,4 +63,5 @@ npm run start
 ###### Mua src api, bot liên hệ mik. 
  
  *Note: Không thay đổi bất kì credits trong xảy ra vấn đề gì thì mik ko chịu trách nhiệm. 
+ - Thắc mắc ib mik. 
 </details>

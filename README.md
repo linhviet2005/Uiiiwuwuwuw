@@ -49,8 +49,9 @@ npm install
 ```bash
 npm run start
 ```
-9.  Để bot được hoạt động hãy ấn ***`RUN`***.
-10.  Chúc bạn một ngày tốt lành và sử dụng dịch vụ vui vẻ! 😘. 
+9.  Muốn chạy lại bot ấn ***`Mannual Deploy -> Dòng 1`***.
+10.  Copy link web service rồi treo tại https://uptime.betterstack.com/
+11.  Chúc bạn một ngày tốt lành và sử dụng dịch vụ vui vẻ! 😘. 
 ```bash
 "BOTNAME": "BOT_NAME",
 "PREFIX": "/",

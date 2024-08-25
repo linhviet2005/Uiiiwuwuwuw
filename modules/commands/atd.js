@@ -125,7 +125,7 @@ module.exports = {
                     // Handle YouTube URLs
                     const linkapi = "https://apitntxtrick.onlitegix.com/downall";
                     const res = await axios.get(`${linkapi}?link=${url}`);
-                    const { title, medias } = res.data.data;
+                    const { title, medias } = res.data;
 
                     message.react("⏱️");
                     let attachment = [];

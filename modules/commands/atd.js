@@ -1,5 +1,6 @@
 const axios = require('axios');
 const fs = require('fs');
+const moment = require('moment-timezone');
 const cache = './.temp';
 
 async function stream(url, type) {
@@ -7,7 +8,7 @@ async function stream(url, type) {
         const response = await axios.get(url, { responseType: 'arraybuffer' });
         const path = `${cache}/${Date.now()}.${type}`;
         fs.writeFileSync(path, response.data);
-        setTimeout(() => fs.unlinkSync(path), 1000 * 60); 
+        setTimeout(() => fs.unlinkSync(path), 1000 * 60);
         return fs.createReadStream(path);
     } catch (error) {
         console.error(error);
@@ -40,9 +41,8 @@ module.exports = {
     },
     async onMessage({ message }) {
         try {
-            if (!message.body) {
-                return;
-            }
+            if (!message.body) return;
+
             const urls = message.body.match(
                 /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
             );
@@ -98,7 +98,7 @@ module.exports = {
                     const linkapi = "https://apitntxtrick.onlitegix.com/capcut";
                     const res = await axios.get(`${linkapi}?url=${url}`);
                     const { title, description, usage, video } = res.data;
-                    
+
                     message.react("⏱️");
                     let attachment = [];
 
@@ -117,6 +117,30 @@ module.exports = {
 📸 Lượt dùng: ${usage || "Không Có Dữ Liệu"}
 🌸 Tự động tải video từ CapCut
 `,
+                        attachment,
+                    }, message.threadID);
+
+                    message.react("✅");
+                } else if (/youtu\.be|youtube\.com/.test(url)) {
+                    // Handle YouTube URLs
+                    const linkapi = "https://apitntxtrick.onlitegix.com/downall";
+                    const res = await axios.get(`${linkapi}?link=${url}`);
+                    const { title, medias } = res.data.data;
+
+                    message.react("⏱️");
+                    let attachment = [];
+
+                    if (medias && medias.url) {
+                        const stream = await axios.get(medias.url[5], { responseType: "stream" }); // MP3
+                        attachment.push(stream.data);
+
+                        // Optional: Download and send the video file
+                        const videoStream = await axios.get(medias.url[0], { responseType: "stream" }); // Video
+                        attachment.push(videoStream.data);
+                    }
+
+                    await message.send({
+                        body: `📝 Tiêu đề: ${title}`,
                         attachment,
                     }, message.threadID);
 
